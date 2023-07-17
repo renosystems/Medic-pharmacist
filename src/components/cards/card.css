@@ -1,0 +1,16 @@
+.order-details-wrapper{
+  border-color: #99C826!important;
+}
+.img-attachement{
+  height:90px
+}
+.medicine-preview{
+  border:1px solid #e6e6e6;
+
+}
+.bg-red{background: red;}
+
+.deleted{
+  text-decoration: line-through;
+  color: #999;
+}

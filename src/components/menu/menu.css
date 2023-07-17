@@ -1,0 +1,7 @@
+.main-menu{top:0}
+.opened-menu-wrapper{background: rgba(0, 0, 0, 0.2);}
+ul{list-style: none;}
+li{border-bottom: 1px solid #fff;}
+li:last-child{border-bottom:none;}
+a{color:#fff;display: block;}
+

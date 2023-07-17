@@ -1,0 +1,9 @@
+{
+	"homepage": "https://medic-pharmacist-dev.surge.sh",
+	"rewrites": [
+		{
+			"source": "**",
+			"destination": "/index.html"
+		}
+	]
+}
