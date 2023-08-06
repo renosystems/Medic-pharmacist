@@ -72,7 +72,6 @@ export default function ReadyOrderDetails(props) {
     Object.keys(order).length != 0 && order.payment_method
       ? getLocalizedName(order.payment_method, activeLanguage)
       : "";
-
   return (
       Object.keys(order).length != 0 && (
           <div className="p-4 order-details">

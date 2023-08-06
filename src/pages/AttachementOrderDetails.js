@@ -28,6 +28,7 @@ import {
 } from "./../store/actions/ordersActions";
 import RejectModal from "./../components/RejectModal";
 import OrderGeneralInfo from "../components/OrderGeneralInfo";
+import { medicinePrice } from "../utils/medicine";
 
 export default function AttachementOrderDetails(props) {
   const orderId = props.match.params.id;
@@ -53,17 +54,17 @@ export default function AttachementOrderDetails(props) {
 
   let addedMedicines = useSelector((state) => state.orders.medicinesList);
   let total =
-    addedMedicines && addedMedicines.length > 0
-      ? addedMedicines.reduce(
-          (a, b) =>
-            a +
-            (b.available &&
-              (b.productform
-                ? (b.productform.price) * b.quantity
-                : b.price * b.quantity)),
-          0
-        )
-      : 0;
+      addedMedicines && addedMedicines.length > 0
+          ? addedMedicines.reduce(
+                (a, b) =>
+                    a +
+                    (b.available &&
+                        (b.productform
+                            ? medicinePrice(b.productform) * b.quantity
+                            : medicinePrice(b) * b.quantity)),
+                0
+            )
+          : 0;
 
   const order_state = useSelector((state) => state.orders);
   const [modal, setModal] = useState(false);
@@ -305,100 +306,7 @@ export default function AttachementOrderDetails(props) {
               </div>
             ) : (
               <div>
-                {/* {order.is_promo_used && !order.user.pay_by_wallet && (
-                  <span
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    {" "}
-                    <span>
-                      <Translate id="general.promocode" />{" "}
-                      {order && order.prom_code}{" "}
-                    </span>
-                    <span>
-                      <Translate id="general.deliveryFees" />{" "}
-                      {order && order.delivery_fees} <span>ج.م</span>
-                    </span>{" "}
-                    <span>
-                      <Translate id="general.totalafterpromo" />{" "}
-                      {order && order.amount_with_delivery_fees}{" "}
-                      <span>ج.م</span>
-                    </span>{" "}
-                  </span>
-                )}
-
-                {order.is_promo_used &&
-                  order.user.pay_by_wallet &&
-                  order.user.wallet_amount != null &&
-                  order.user.order_status != 2 && (
-                    <span
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "flex-end",
-                      }}
-                    >
-                      {" "}
-                      <span>
-                        <Translate id="general.promocode" />{" "}
-                        {order && order.prom_code}{" "}
-                      </span>
-                      <span>
-                        <Translate id="general.deliveryFees" />{" "}
-                        {order && order.delivery_fees} <span>ج.م</span>
-                      </span>{" "}
-                      <span>
-                        <Translate id="general.totalafterpromo" />{" "}
-                        {order &&
-                          order.amount_with_delivery_fees -
-                            order.user.wallet_amount}{" "}
-                        <span>ج.م</span>
-                      </span>{" "}
-                    </span>
-                  )}
-                {order.user.pay_by_wallet &&
-                  order.user.wallet_amount != null &&
-                  order.user.order_status != 2 &&
-                  !order.is_promo_used && (
-                    <span
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "flex-end",
-                      }}
-                    >
-                      {" "}
-                      <span>
-                        <Translate id="general.payByWalletAmount" />{" "}
-                        {order &&
-                        order.amount_with_delivery_fees >=
-                          order.user.wallet_amount
-                          ? order.user.wallet_amount
-                          : order.amount_with_delivery_fees}
-                        <span>ج.م</span>
-                      </span>
-                      <span>
-                        <Translate id="general.deliveryFees" />{" "}
-                        {order && order.delivery_fees} <span>ج.م</span>
-                      </span>{" "}
-                      <span>
-                        <Translate id="general.totalafterpromo" />{" "}
-                        {order &&
-                          order.grand_total_amount -
-                            order.user.wallet_amount +
-                            order.delivery_fees}{" "}
-                        <span>ج.م</span>
-                      </span>{" "}
-                    </span>
-                  )} */}
-
-                {/* {!order.is_promo_used && !order.user.pay_by_wallet && ( */}
+               
                   <span
                     style={{
                       display: "flex",
