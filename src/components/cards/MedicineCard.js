@@ -14,6 +14,7 @@ import { getActiveLanguage } from "react-localize-redux";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteModal from "./../DeleteModal";
 import Badge from "../Badge";
+import { hasCashbackDiscount, hasInstantDiscount, medicineOriginalPrice, medicinePrice } from "../../utils/medicine";
 
 export default function MedicineCard(props) {
     const [state, setState] = React.useState({
@@ -67,7 +68,7 @@ export default function MedicineCard(props) {
 
     const viewOption = props.viewOption;
 
-    let price = medicine ? medicine.price : 0;
+    let price = medicinePrice(medicine);
     let hasDiscount = medicine ? medicine.discount_amount > 0 : false;
     let priceAfterDiscount = medicine
         ? medicine.price - medicine.discount_amount
@@ -185,7 +186,7 @@ export default function MedicineCard(props) {
                         <p>
                             <Translate id="general.price" />
                             <span> {price} ج.م</span>
-                            {hasDiscount && (
+                            {hasCashbackDiscount(medicine) && (
                                 <Badge>
                                     <Translate
                                         id="general.cashBack"
@@ -194,6 +195,20 @@ export default function MedicineCard(props) {
                                         }}
                                     />
                                 </Badge>
+                            )}
+                            {hasInstantDiscount(medicine) && (
+                                <>
+                                    <span
+                                      style={{
+                                        textDecoration: "line-through",
+                                        color:"#aaa"
+                                      }}
+                                    > {medicineOriginalPrice(medicine)} ج.م</span>
+                                    {" "}
+                                    <Badge>
+                                        <Translate id="general.instantDiscount" />
+                                    </Badge>
+                                </>
                             )}
                             {/* <span className= {hasDiscount? "deleted":""}> {price} ج.م</span> */}
                             {/* {hasDiscount && <span> {priceAfterDiscount} ج.م</span>} */}

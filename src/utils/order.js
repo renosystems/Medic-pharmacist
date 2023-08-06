@@ -59,17 +59,29 @@ export const cashbackDiscount = (order) => {
     return promoCashbackDiscount(order) + totalPerMedicineDiscount(order);
 };
 
+
+
+export const itemsInstantDiscount = (order) => {
+	const itemsDiscounts = order?.order_items
+		?.filter(
+			(item) =>
+        item?.productform?.discount_method === "instant" 
+		)
+		.map((i) => i.discount);
+	const sum = itemsDiscounts?.reduce(
+		(discountsPartialSum, discount) => discountsPartialSum + discount,
+		0);
+
+  return sum;
+};
+
 /**
  *
  * @param {Object} order
  * @returns {float} the total price that the user should pay for this order
  */
 export const orderTotalPrice = (order) => {
-    return formatToCurrency(
-        order?.total_final +
-            order?.grand_total_amount -
-            order?.grand_total_amount_after_discount
-    );
+	return formatToCurrency(order?.total_final - itemsInstantDiscount(order));
 };
 
 

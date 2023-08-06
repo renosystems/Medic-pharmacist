@@ -21,7 +21,7 @@ export default function Invoice({ order }) {
         <table>
             <tbody>
                 <InvoiceRow label="general.total">
-                    {order && order.grand_total_amount}
+                    {order && order.grand_total_amount_after_discount}
                     <span>ج.م</span>
                 </InvoiceRow>
                 {order.is_promo_used && (
