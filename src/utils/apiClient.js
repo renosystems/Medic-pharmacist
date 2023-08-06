@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //live
-API_URL = "http://54.229.114.61"; // "http://52.50.193.242";
+// API_URL = "http://54.229.114.61"; // "http://52.50.193.242";
 const headers = {
   Accept: `application/json`,
   // "Content-Type": "multipart/form-data"
