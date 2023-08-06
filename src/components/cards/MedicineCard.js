@@ -19,7 +19,6 @@ export default function MedicineCard(props) {
     const [state, setState] = React.useState({
         checkedB: true,
     });
-
     const [isAlt, setIsAlt] = useState(false);
     const activeLanguage = useSelector((state) =>
         getActiveLanguage(state.localize)
@@ -149,28 +148,40 @@ export default function MedicineCard(props) {
                                     </span>
 
                                     <div className="d-flex flex-row align-items-center">
-                                        {props.handleIncrease && <FontAwesomeIcon
-                                            icon={faPlus}
-                                            color="black"
-                                            size="xs"
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() =>
-                                                props.handleIncrease(medicine)
-                                            }
-                                        />}{" "}
+                                        {props.handleIncrease &&
+                                            props.medicine.ordered_quantity >
+                                                medicine.quantity && (
+                                                <FontAwesomeIcon
+                                                    icon={faPlus}
+                                                    color="black"
+                                                    size="xs"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                    onClick={() =>
+                                                        props.handleIncrease(
+                                                            medicine
+                                                        )
+                                                    }
+                                                />
+                                            )}{" "}
                                         <span className="ml-2 mr-2">
                                             {" "}
                                             {medicine.quantity}{" "}
                                         </span>{" "}
-                                          {props.handleDecrease && <FontAwesomeIcon
-                                            icon={faMinus}
-                                            color="black"
-                                            size="xs"
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() =>
-                                                props.handleDecrease(medicine)
-                                            }
-                                        />}
+                                        {props.handleDecrease && (
+                                            <FontAwesomeIcon
+                                                icon={faMinus}
+                                                color="black"
+                                                size="xs"
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() =>
+                                                    props.handleDecrease(
+                                                        medicine
+                                                    )
+                                                }
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>
