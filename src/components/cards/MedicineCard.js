@@ -170,19 +170,22 @@ export default function MedicineCard(props) {
                                             {" "}
                                             {medicine.quantity}{" "}
                                         </span>{" "}
-                                        {props.handleDecrease && (
-                                            <FontAwesomeIcon
-                                                icon={faMinus}
-                                                color="black"
-                                                size="xs"
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() =>
-                                                    props.handleDecrease(
-                                                        medicine
-                                                    )
-                                                }
-                                            />
-                                        )}
+                                        {props.handleDecrease &&
+                                            props.medicine.quantity > 1 && (
+                                                    <FontAwesomeIcon
+                                                        icon={faMinus}
+                                                        color="black"
+                                                        size="xs"
+                                                        style={{
+                                                            cursor: "pointer",
+                                                        }}
+                                                        onClick={() =>
+                                                            props.handleDecrease(
+                                                                medicine
+                                                            )
+                                                        }
+                                                    />
+                                                )}
                                     </div>
                                 </div>
                             </div>
@@ -210,12 +213,14 @@ export default function MedicineCard(props) {
                             {hasInstantDiscount(medicine) && (
                                 <>
                                     <span
-                                      style={{
-                                        textDecoration: "line-through",
-                                        color:"#aaa"
-                                      }}
-                                    > {medicineOriginalPrice(medicine)} ج.م</span>
-                                    {" "}
+                                        style={{
+                                            textDecoration: "line-through",
+                                            color: "#aaa",
+                                        }}
+                                    >
+                                        {" "}
+                                        {medicineOriginalPrice(medicine)} ج.م
+                                    </span>{" "}
                                     <Badge>
                                         <Translate id="general.instantDiscount" />
                                     </Badge>
