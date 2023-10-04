@@ -36,7 +36,11 @@ export default function AttachementOrderDetails(props) {
     getActiveLanguage(state.localize)
   );
 
+  const orderDetails = useSelector((state) => state.orders.orderDetails);
+  const orderChanged = useSelector((state) => state.orders.changed);
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getOrder(orderId, 2));
     return () => {
@@ -45,7 +49,12 @@ export default function AttachementOrderDetails(props) {
     // dispatch(addMedicinesToAttachments([],true));
   }, []);
 
-  const orderDetails = useSelector((state) => state.orders.orderDetails);
+  useEffect(()=>{
+    if(orderChanged){
+      props.history.push("/");
+    }
+  },[orderChanged,props.history]);
+
   let order = null;
   if (orderDetails && orderDetails.order) {
     order = orderDetails.order;
@@ -130,12 +139,13 @@ export default function AttachementOrderDetails(props) {
   function toggleRejectModal() {
     setRejectModal(!rejectModal);
   }
+
+
   function handleReject(order, rejectionReason) {
     if (order.status === 2 || order.status == 14) {
       toggleRejectModal();
-      dispatch(changeOrderStatus(order, 10, rejectionReason));
       dispatch(sendComment(order.id, comment));
-      props.history.push("/");
+      dispatch(changeOrderStatus(order, 10, rejectionReason));
     }
   }
 
